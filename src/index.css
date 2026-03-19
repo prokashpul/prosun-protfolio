@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: #B4D336;
+  --color-accent-hover: #c5e447;
+  --color-text-main: var(--text-main);
+  --color-text-muted: var(--text-muted);
+  
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Poppins", sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  :root {
+    --primary: #ffffff;
+    --secondary: #f5f5f5;
+    --text-main: #0a0a0a;
+    --text-muted: #525252;
+  }
+
+  .dark {
+    --primary: #0a0a0a;
+    --secondary: #141414;
+    --text-main: #ffffff;
+    --text-muted: #a3a3a3;
+  }
+
+  body {
+    @apply bg-primary text-text-main font-sans selection:bg-accent selection:text-primary transition-colors duration-300;
+  }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap');
