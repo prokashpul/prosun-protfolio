@@ -229,7 +229,7 @@ export default function App() {
     e.preventDefault();
     setFormStatus('submitting');
     
-    // Simulate email sending to pprokash103@gmail.com
+    // Simulate email sending to santanusikder1@gmail.com
     // In a real scenario, you would use a service like Formspree or a backend API
     setTimeout(() => {
       setFormStatus('success');
@@ -328,7 +328,11 @@ export default function App() {
                   <img 
                     src="https://storage.googleapis.com/test-media-bucket-v1/cloudevents/706275545075/zgywjakrmzupwnmrxwru2d/1742455000000/input_file_0.png" 
                     alt="Santanu Sikder"
-                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = 'https://picsum.photos/seed/santanu/800/800';
+                    }}
+                    className="w-full h-full object-cover transition-all duration-500"
                   />
                 </div>
                 {/* Floating Stats */}
@@ -492,7 +496,7 @@ export default function App() {
                   key={project.id}
                   className="group relative rounded-3xl overflow-hidden aspect-[4/5]"
                 >
-                  <img src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  <img src={project.image} alt={project.title} referrerPolicy="no-referrer" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                   <div className="absolute inset-0 bg-gradient-to-t from-primary via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   
                   <div className="absolute bottom-0 left-0 w-full p-8 translate-y-10 group-hover:translate-y-0 transition-transform duration-500">
@@ -537,7 +541,7 @@ export default function App() {
                   </div>
                   <p className="text-lg italic mb-8 text-text-muted">"{t.content}"</p>
                   <div className="flex items-center gap-4">
-                    <img src={t.image} alt={t.name} className="w-12 h-12 rounded-full object-cover" />
+                    <img src={t.image} alt={t.name} referrerPolicy="no-referrer" className="w-12 h-12 rounded-full object-cover" />
                     <div>
                       <h5 className="font-bold">{t.name}</h5>
                       <p className="text-xs text-text-muted uppercase tracking-widest">{t.role}</p>
@@ -562,7 +566,7 @@ export default function App() {
                   className="group"
                 >
                   <div className="rounded-3xl overflow-hidden mb-6 aspect-video">
-                    <img src={blog.image} alt={blog.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <img src={blog.image} alt={blog.title} referrerPolicy="no-referrer" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   </div>
                   <span className="text-accent text-xs font-bold tracking-widest uppercase mb-2 block">{blog.date}</span>
                   <h4 className="text-xl font-bold mb-4 group-hover:text-accent transition-colors">{blog.title}</h4>
@@ -605,11 +609,11 @@ export default function App() {
                   <div className="space-y-4">
                     <div className="flex items-center gap-4">
                       <Mail className="w-6 h-6" />
-                      <span className="text-xl font-bold">bill.sanders@example.com</span>
+                      <span className="text-xl font-bold">santanusikder1@gmail.com</span>
                     </div>
                     <div className="flex items-center gap-4">
                       <Phone className="w-6 h-6" />
-                      <span className="text-xl font-bold">(239) 555-0108</span>
+                      <span className="text-xl font-bold">+880 1829-220286</span>
                     </div>
                   </div>
                 </div>
@@ -680,7 +684,7 @@ export default function App() {
               <Star className="w-10 h-10 fill-primary" />
             </div>
             <h3 className="text-3xl font-black mb-2 font-display">Your Message Done</h3>
-            <p className="font-medium opacity-80 mb-8">Thank you for reaching out. I'll get back to you at pprokash103@gmail.com soon!</p>
+            <p className="font-medium opacity-80 mb-8">Thank you for reaching out. I'll get back to you at santanusikder1@gmail.com soon!</p>
             <button 
               onClick={() => setFormStatus('idle')}
               className="bg-primary text-accent px-8 py-4 rounded-2xl font-bold w-full hover:scale-[1.02] transition-transform"
