@@ -115,7 +115,7 @@ const PROJECTS: Project[] = [
 ];
 
 const TESTIMONIALS: Testimonial[] = [
-  { id: 1, name: "Zonathon Smith", role: "CEO, TechFlow", content: "Working with Sananu was a pleasure. His attention to detail and creative vision transformed our project into something truly special.", rating: 5, image: "https://i.pravatar.cc/150?u=1" },
+  { id: 1, name: "Zonathon Smith", role: "CEO, TechFlow", content: "Working with Santanu was a pleasure. His attention to detail and creative vision transformed our project into something truly special.", rating: 5, image: "https://i.pravatar.cc/150?u=1" },
   { id: 2, name: "Sarah Johnson", role: "Product Manager", content: "The best designer I've ever worked with. He understands the user needs perfectly and delivers outstanding results every time.", rating: 5, image: "https://i.pravatar.cc/150?u=2" }
 ];
 
@@ -197,6 +197,33 @@ export default function App() {
   const [filter, setFilter] = useState('All');
   const [visibleProjects, setVisibleProjects] = useState(6);
   const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
+  const [activeSection, setActiveSection] = useState('home');
+
+  useEffect(() => {
+    const sections = ['home', 'about', 'services', 'projects', 'blog', 'contact'];
+    const observerOptions = {
+      root: null,
+      rootMargin: '-20% 0px -70% 0px', // Adjust margin to trigger active state more naturally
+      threshold: 0,
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    sections.forEach((id) => {
+      const element = document.getElementById(id);
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -225,7 +252,11 @@ export default function App() {
           
           <nav className="hidden md:flex items-center gap-8">
             {['Home', 'About', 'Services', 'Projects', 'Blog', 'Contact'].map((item) => (
-              <a key={item} href={`#${item.toLowerCase()}`} className="text-sm font-medium hover:text-accent transition-colors">
+              <a 
+                key={item} 
+                href={`#${item.toLowerCase()}`} 
+                className={`text-sm font-medium transition-colors ${activeSection === item.toLowerCase() ? 'text-accent' : 'hover:text-accent'}`}
+              >
                 {item}
               </a>
             ))}
@@ -265,15 +296,16 @@ export default function App() {
             >
               <span className="text-accent font-medium tracking-widest uppercase mb-4 block">✱ UI/UX DESIGNER</span>
               <h1 className="text-6xl md:text-8xl font-extrabold font-display leading-tight mb-8">
-                HELLO <br /> I'M <span className="text-accent underline decoration-4 underline-offset-8">SANANU</span> SIKDER
+                HELLO <br /> I'M <span className="text-accent underline decoration-4 underline-offset-8">SANTANU</span> SIKDER
               </h1>
               <div className="flex items-center gap-6">
-                <motion.button 
+                <motion.a 
+                  href="#contact"
                   whileHover={{ scale: 1.05 }}
                   className="bg-accent text-primary px-8 py-4 rounded-full font-bold flex items-center gap-2"
                 >
                   Hire Me <ArrowUpRight className="w-5 h-5" />
-                </motion.button>
+                </motion.a>
                 <div className="flex gap-4">
                   {[Twitter, Linkedin, Instagram].map((Icon, i) => (
                     <a key={i} href="#" className="w-10 h-10 border border-white/10 rounded-full flex items-center justify-center hover:bg-accent hover:text-primary transition-all">
@@ -294,8 +326,8 @@ export default function App() {
                 <div className="absolute inset-0 bg-accent rounded-full opacity-20 blur-3xl animate-pulse" />
                 <div className="absolute inset-0 border-[15px] border-accent rounded-full overflow-hidden">
                   <img 
-                    src="https://picsum.photos/seed/sananu/1000/1000" 
-                    alt="Sananu Sikder"
+                    src="https://storage.googleapis.com/test-media-bucket-v1/cloudevents/706275545075/zgywjakrmzupwnmrxwru2d/1742455000000/input_file_0.png" 
+                    alt="Santanu Sikder"
                     className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
                   />
                 </div>
@@ -328,7 +360,7 @@ export default function App() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="flex flex-col md:flex-row justify-between items-end mb-16">
               <SectionHeading subtitle="My Experience resume" title="work & Education" />
-              <button className="bg-accent text-primary px-6 py-2 rounded-full font-bold text-sm mb-12">Contact Me</button>
+              <a href="#contact" className="bg-accent text-primary px-6 py-2 rounded-full font-bold text-sm mb-12 inline-block">Contact Me</a>
             </div>
 
             <div className="grid md:grid-cols-2 gap-20">
