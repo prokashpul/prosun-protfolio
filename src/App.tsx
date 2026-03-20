@@ -17,7 +17,9 @@ import {
   Phone,
   MapPin,
   Sun,
-  Moon
+  Moon,
+  Menu,
+  X
 } from "lucide-react";
 import React, { useState, useEffect, useRef, useCallback, ReactNode } from "react";
 
@@ -198,6 +200,7 @@ export default function App() {
   const [visibleProjects, setVisibleProjects] = useState(6);
   const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
   const [activeSection, setActiveSection] = useState('home');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const sections = ['home', 'about', 'services', 'projects', 'blog', 'contact'];
@@ -277,12 +280,45 @@ export default function App() {
             <motion.a 
               href="#contact"
               whileHover={{ scale: 1.05, filter: "brightness(1.1)" }}
-              className="bg-accent text-primary px-6 py-2.5 rounded-full font-bold text-sm inline-block"
+              className="hidden sm:inline-block bg-accent text-primary px-6 py-2.5 rounded-full font-bold text-sm"
             >
               Let's Talk
             </motion.a>
+            <button 
+              className="md:hidden p-2 text-text-muted hover:text-accent transition-colors"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="md:hidden absolute top-20 left-0 w-full bg-primary border-b border-white/5 p-6 space-y-4 shadow-2xl"
+          >
+            {['Home', 'About', 'Services', 'Projects', 'Blog', 'Contact'].map((item) => (
+              <a 
+                key={item} 
+                href={`#${item.toLowerCase()}`} 
+                onClick={() => setIsMenuOpen(false)}
+                className={`block text-lg font-bold transition-colors ${activeSection === item.toLowerCase() ? 'text-accent' : 'hover:text-accent'}`}
+              >
+                {item}
+              </a>
+            ))}
+            <a 
+              href="#contact"
+              onClick={() => setIsMenuOpen(false)}
+              className="block bg-accent text-primary px-6 py-3 rounded-xl font-bold text-center"
+            >
+              Let's Talk
+            </a>
+          </motion.div>
+        )}
       </header>
 
       <main className="pt-20">
@@ -295,7 +331,7 @@ export default function App() {
               transition={{ duration: 0.8 }}
             >
               <span className="text-accent font-medium tracking-widest uppercase mb-4 block">✱ UI/UX DESIGNER</span>
-              <h1 className="text-6xl md:text-8xl font-extrabold font-display leading-tight mb-8">
+              <h1 className="text-5xl sm:text-6xl md:text-8xl font-extrabold font-display leading-tight mb-8">
                 HELLO <br /> I'M <span className="text-accent underline decoration-4 underline-offset-8">SANTANU</span> SIKDER
               </h1>
               <div className="flex items-center gap-6">
@@ -322,9 +358,9 @@ export default function App() {
               transition={{ duration: 0.8 }}
               className="relative flex justify-center"
             >
-              <div className="relative w-80 h-80 md:w-[450px] md:h-[450px]">
+              <div className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-[450px] md:h-[450px]">
                 <div className="absolute inset-0 bg-accent rounded-full opacity-20 blur-3xl animate-pulse" />
-                <div className="absolute inset-0 border-[15px] border-accent rounded-full overflow-hidden">
+                <div className="absolute inset-0 border-[10px] md:border-[15px] border-accent rounded-full overflow-hidden">
                   <img 
                     src="https://storage.googleapis.com/test-media-bucket-v1/cloudevents/706275545075/zgywjakrmzupwnmrxwru2d/1742455000000/input_file_0.png" 
                     alt="Santanu Sikder"
@@ -336,9 +372,9 @@ export default function App() {
                   />
                 </div>
                 {/* Floating Stats */}
-                <div className="absolute -bottom-10 -left-10 bg-secondary p-6 rounded-2xl border border-white/5 shadow-2xl">
-                  <div className="text-3xl font-bold text-accent"><Counter target={78} />+</div>
-                  <div className="text-xs text-text-muted uppercase tracking-widest">Projects Completed</div>
+                <div className="absolute -bottom-6 -left-6 sm:-bottom-10 sm:-left-10 bg-secondary p-4 sm:p-6 rounded-2xl border border-white/5 shadow-2xl">
+                  <div className="text-2xl sm:text-3xl font-bold text-accent"><Counter target={78} />+</div>
+                  <div className="text-[10px] sm:text-xs text-text-muted uppercase tracking-widest">Projects Completed</div>
                 </div>
               </div>
             </motion.div>
@@ -347,13 +383,13 @@ export default function App() {
 
         {/* Marquee Branding */}
         <div className="py-10 border-y border-white/5 overflow-hidden bg-secondary/30">
-          <div className="flex gap-12 whitespace-nowrap animate-marquee">
+          <div className="flex gap-8 sm:gap-12 whitespace-nowrap animate-marquee">
             {[1, 2, 3, 4].map((_) => (
-              <div key={_} className="flex gap-12 items-center">
-                <span className="text-2xl font-bold opacity-30">BRANDING ✱</span>
-                <span className="text-2xl font-bold opacity-30">PRODUCT DESIGN ✱</span>
-                <span className="text-2xl font-bold opacity-30">DIGITAL MARKETING ✱</span>
-                <span className="text-2xl font-bold opacity-30">DEVELOPMENT ✱</span>
+              <div key={_} className="flex gap-8 sm:gap-12 items-center">
+                <span className="text-lg sm:text-2xl font-bold opacity-30">BRANDING ✱</span>
+                <span className="text-lg sm:text-2xl font-bold opacity-30">PRODUCT DESIGN ✱</span>
+                <span className="text-lg sm:text-2xl font-bold opacity-30">DIGITAL MARKETING ✱</span>
+                <span className="text-lg sm:text-2xl font-bold opacity-30">DEVELOPMENT ✱</span>
               </div>
             ))}
           </div>
@@ -362,9 +398,9 @@ export default function App() {
         {/* Experience & Education */}
         <section id="about" className="py-24 bg-secondary/20">
           <div className="max-w-7xl mx-auto px-6">
-            <div className="flex flex-col md:flex-row justify-between items-end mb-16">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
               <SectionHeading subtitle="My Experience resume" title="work & Education" />
-              <a href="#contact" className="bg-accent text-primary px-6 py-2 rounded-full font-bold text-sm mb-12 inline-block">Contact Me</a>
+              <a href="#contact" className="bg-accent text-primary px-6 py-2 rounded-full font-bold text-sm inline-block">Contact Me</a>
             </div>
 
             <div className="grid md:grid-cols-2 gap-20">
@@ -374,7 +410,7 @@ export default function App() {
                   <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center">
                     <ArrowUpRight className="text-accent" />
                   </div>
-                  <h3 className="text-6xl font-black opacity-10 uppercase tracking-tighter">WORK</h3>
+                  <h3 className="text-4xl sm:text-6xl font-black opacity-10 uppercase tracking-tighter">WORK</h3>
                 </div>
                 <div className="space-y-6">
                   {EXPERIENCE.filter(e => e.type === 'work').map((item) => (
@@ -400,7 +436,7 @@ export default function App() {
                   <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center">
                     <ArrowUpRight className="text-accent" />
                   </div>
-                  <h3 className="text-6xl font-black opacity-10 uppercase tracking-tighter">STUDY</h3>
+                  <h3 className="text-4xl sm:text-6xl font-black opacity-10 uppercase tracking-tighter">STUDY</h3>
                 </div>
                 <div className="space-y-6">
                   {EXPERIENCE.filter(e => e.type === 'study').map((item) => (
@@ -601,19 +637,19 @@ export default function App() {
         {/* Contact CTA */}
         <section id="contact" className="py-24">
           <div className="max-w-7xl mx-auto px-6">
-            <div className="bg-accent rounded-[40px] p-12 md:p-24 text-primary relative overflow-hidden">
-              <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-12">
-                <div className="max-w-xl">
-                  <h2 className="text-5xl md:text-7xl font-black font-display leading-none mb-8">GET IN <br /> TOUCH <ArrowUpRight className="inline-block w-12 h-12 md:w-20 md:h-20" /></h2>
-                  <p className="text-lg font-medium opacity-80 mb-8">Let's work together to create something amazing. I'm available for new projects and collaborations.</p>
+            <div className="bg-accent rounded-[30px] md:rounded-[40px] p-8 md:p-24 text-primary relative overflow-hidden">
+              <div className="relative z-10 flex flex-col lg:flex-row justify-between items-center gap-12">
+                <div className="max-w-xl w-full">
+                  <h2 className="text-4xl sm:text-5xl md:text-7xl font-black font-display leading-none mb-8">GET IN <br /> TOUCH <ArrowUpRight className="inline-block w-10 h-10 md:w-20 md:h-20" /></h2>
+                  <p className="text-base md:text-lg font-medium opacity-80 mb-8">Let's work together to create something amazing. I'm available for new projects and collaborations.</p>
                   <div className="space-y-4">
                     <div className="flex items-center gap-4">
-                      <Mail className="w-6 h-6" />
-                      <span className="text-xl font-bold">santanusikder1@gmail.com</span>
+                      <Mail className="w-5 h-5 md:w-6 md:h-6" />
+                      <span className="text-lg md:text-xl font-bold break-all">santanusikder1@gmail.com</span>
                     </div>
                     <div className="flex items-center gap-4">
-                      <Phone className="w-6 h-6" />
-                      <span className="text-xl font-bold">+880 1829-220286</span>
+                      <Phone className="w-5 h-5 md:w-6 md:h-6" />
+                      <span className="text-lg md:text-xl font-bold">+880 1829-220286</span>
                     </div>
                   </div>
                 </div>
@@ -650,9 +686,9 @@ export default function App() {
               <span className="text-xl font-bold font-display tracking-tight">ProSun</span>
             </div>
             
-            <div className="flex gap-8">
+            <div className="flex flex-wrap justify-center gap-x-8 gap-y-4">
               {['Service', 'Projects', 'Pricing', 'Faqs', 'News', 'Contact'].map(item => (
-                <a key={item} href="#" className="text-xs font-bold uppercase tracking-widest text-text-muted hover:text-accent transition-colors">{item}</a>
+                <a key={item} href={`#${item.toLowerCase()}`} className="text-[10px] font-bold uppercase tracking-widest text-text-muted hover:text-accent transition-colors">{item}</a>
               ))}
             </div>
 
